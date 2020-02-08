@@ -12,7 +12,7 @@ import UIKit
 #endif
 
 #if canImport(UIKit)
-public protocol TestSuite {
+public protocol Suite {
   var rawValue: String { get }
   var presentationMethod: PresentationMethod { get }
   var name: String { get }

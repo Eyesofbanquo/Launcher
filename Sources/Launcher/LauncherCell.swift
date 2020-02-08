@@ -14,7 +14,7 @@ import Stevia
 import SnapKit
 
 /// The cell used to display a card view on the `TestingViewController`
-class TestCell: UITableViewCell {
+class LauncherCell: UITableViewCell {
   
   // MARK: - Properties -
   
