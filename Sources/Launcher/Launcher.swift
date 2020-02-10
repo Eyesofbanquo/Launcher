@@ -49,7 +49,6 @@ public class Launcher: UIViewController {
       tableView
     ])
     
-    
     tableView.style { t in
       t.separatorStyle = .none
       t.register(LauncherCell.self, forCellReuseIdentifier: reuseIdentifier)
@@ -86,16 +85,16 @@ extension Launcher {
     }
   }
   
-  public func window(forScene scene: UIScene) -> UIWindow? {
+  public func createWindow(forScene scene: UIScene) -> UIWindow? {
     guard let windowScene = (scene as? UIWindowScene) else { return nil }
     
     // Create a new window with the given window scene
-    let window = UIWindow(windowScene: windowScene)
+    let createWindow = UIWindow(windowScene: windowScene)
     let rootViewController = create()
     
-    window.rootViewController = rootViewController
+    createWindow.rootViewController = rootViewController
     
-    return window
+    return createWindow
   }
 }
 
@@ -111,9 +110,6 @@ extension Launcher {
     
     let navAppearance = UINavigationBarAppearance()
     navAppearance.configureWithOpaqueBackground()
-//    navAppearance.backgroundColor = .black
-//    navAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-//    navAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
     
     navigationController.navigationBar.compactAppearance = navAppearance
     navigationController.navigationBar.standardAppearance = navAppearance
@@ -177,8 +173,6 @@ extension Launcher: UITableViewDataSource {
     return testCell
   }
   
-  
 }
-
 
 #endif
