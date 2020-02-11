@@ -25,6 +25,7 @@ class DisplayViewController: UIViewController {
   init(viewToPresent: UIView, grid: Grid, title: String? = nil) {
     presentableView = viewToPresent
     transition = StandardModalTransitionDelegate.init(grid: grid, title: title)
+    
     super.init(nibName: nil, bundle: nil)
     
     self.transitioningDelegate = transition
@@ -45,10 +46,10 @@ class DisplayViewController: UIViewController {
     ])
     
     presentableView.snp.makeConstraints { make in
-      make.leading.equalTo(containerView.snp.leading)
-      make.trailing.equalTo(containerView.snp.trailing)
-      make.bottom.equalTo(containerView.snp.bottom)
-      make.top.equalTo(containerView.snp.top)
+      make.leading.equalTo(containerView.layoutMarginsGuide.snp.leading)
+      make.trailing.equalTo(containerView.layoutMarginsGuide.snp.trailing)
+      make.bottom.equalTo(containerView.layoutMarginsGuide.snp.bottom)
+      make.top.equalTo(containerView.layoutMarginsGuide.snp.top)
     }
     
     view = containerView
@@ -58,6 +59,14 @@ class DisplayViewController: UIViewController {
     super.viewDidLoad()
     
     view.backgroundColor = .white
+  }
+}
+
+extension UIViewController {
+  
+  public static func display(viewToPresent: UIView, grid: Grid, title: String? = nil) -> UIViewController {
+    
+    return DisplayViewController(viewToPresent: viewToPresent, grid: grid, title: title)
   }
 }
 

@@ -8,13 +8,13 @@
 
 import UIKit
 
-enum Grid {
+public enum Grid {
   case point8
   case point16
   case point64
   case custom
   
-  var positiveOffset: CGFloat {
+  public var positiveOffset: CGFloat {
     switch self {
     case .point8: return 8.0
     case .point16: return 16.0
@@ -23,7 +23,7 @@ enum Grid {
     }
   }
   
-  var negativeOffset: CGFloat {
+  public var negativeOffset: CGFloat {
     return positiveOffset * -1.0
   }
 
