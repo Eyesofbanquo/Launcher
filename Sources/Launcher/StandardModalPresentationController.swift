@@ -40,7 +40,7 @@ class StandardModalPresentationController: UIPresentationController {
     self.titleLabel?.style { label in
       label.alpha = 0.0
       label.text = title
-      label.textColor = .black
+      label.textColor = .white
       label.numberOfLines = 1
       label.font = UIFont.preferredFont(forTextStyle: .headline)
       label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
@@ -54,7 +54,8 @@ class StandardModalPresentationController: UIPresentationController {
   
   private func setupBlurView(inContainer containerView: UIView) {
     containerView.insertSubview(blurView, at: 0)
-    blurView.alpha = 0.33
+    
+//    blurView.alpha = 0.33
     blurView.snp.makeConstraints { make in
       make.leading.equalTo(containerView)
       make.trailing.equalTo(containerView)
@@ -65,7 +66,7 @@ class StandardModalPresentationController: UIPresentationController {
   
   private func setupTitleLabel(inContainer conatiner: UIView) {
     guard let label = titleLabel else { return }
-    label.alpha = 1.0
+//    label.alpha = 1.0
     containerView?.insertSubview(label, at: 1)
   }
   
@@ -73,6 +74,38 @@ class StandardModalPresentationController: UIPresentationController {
     if gesture.state == .ended {
       presentingViewController.dismiss(animated: true, completion: nil)
     }
+  }
+  
+  override func presentationTransitionWillBegin() {
+    guard let containerView = containerView else { return }
+    
+    setupTitleLabel(inContainer: containerView)
+    setupBlurView(inContainer: containerView)
+
+    guard let coordinator = presentedViewController.transitionCoordinator else {
+      self.titleLabel?.alpha = 1.0
+      blurView.alpha = 0.33
+      return
+    }
+    
+    coordinator.animate(alongsideTransition: { context in
+      self.titleLabel?.alpha = 1.0
+      self.blurView.alpha = 1.0
+    }, completion: nil)
+  }
+  
+  override func dismissalTransitionWillBegin() {
+    guard let coordinator = presentedViewController.transitionCoordinator else {
+      self.titleLabel?.alpha = 0.0
+      blurView.alpha = 0.0
+      return
+    }
+    
+    self.titleLabel?.alpha = 0.0
+
+    coordinator.animate(alongsideTransition: { context in
+      self.blurView.alpha = 0.0
+    }, completion: nil)
   }
   
   override func containerViewWillLayoutSubviews() {
@@ -89,8 +122,6 @@ class StandardModalPresentationController: UIPresentationController {
       make.bottom.equalTo(containerView.directionalLayoutMargins.bottom).offset(grid.negativeOffset)
     }
     
-    setupTitleLabel(inContainer: containerView)
-    setupBlurView(inContainer: containerView)
     
     self.titleLabel?.snp.makeConstraints { make in
       make.leading.equalTo(layoutGuide.snp.leading)
