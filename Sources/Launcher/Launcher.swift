@@ -79,11 +79,9 @@ public class Launcher: UIViewController {
 
 extension Launcher {
   
-  public func register<T: Suite & CaseIterable>(suites: [T.Type]) {
+  public func register(suites: [Suite.Type]) {
     for suite in suites {
-      if let addableSuites = suite.allCases as? [Suite] {
-        self.suites.append(addableSuites)
-      }
+      self.suites.append(suite.collection)
     }
   }
   
@@ -156,7 +154,7 @@ extension Launcher: UITableViewDataSource {
   public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     guard suites[section].count > 0 else { return "unknown" }
     
-    return suites[section].first!.name
+    return suites[section].first!.suiteName
   }
   
   public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -177,7 +175,7 @@ extension Launcher: UITableViewDataSource {
     guard let testCell = cell as? LauncherCell else { return cell }
     
     let item = suites[indexPath.section][indexPath.row]
-    let title = "Tap to showcase \(item.rawValue)."
+    let title = "Tap to showcase \(item.rowTitle)."
     
     testCell.configure(withTitle: title)
     testCell.backgroundColor = self.view.backgroundColor
