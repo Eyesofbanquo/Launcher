@@ -22,8 +22,38 @@ This type is the heart and soul of the framework since this determines what exac
 3. `name` - This is the name of the section for the content. 
 4. `controller() -> UIViewController` - This is the actual controller you plan on presenting/pushing whenever a `LaunchCell` is tapped.
 
-### Workflow
 
-1. Create an instance of `Launcher` for the `SceneDelegate` and give it a scene. This will return a window with the launcher already configured.
-2. Call `.register(suites:)` to register your `Suite` enums. 
-3. Call `makeKeyAndVisible` on the `UIWindow` the `Launcher` object returned.
+### Usage
+
+**Create a launcher object**
+
+~~~swift
+
+let launcher = Launcher()
+
+~~~
+
+**Register your Suites with the Launcher**
+
+~~~swift
+
+launcher.register(suites: [TestSuite.self])
+
+~~~
+
+**Create a window object using the launcher object**
+
+~~~swift
+
+let window = launcher.createWindow(forScene: scene)
+
+~~~
+
+**Make the created window the key window and make it visible**
+
+~~~swift
+
+window.makeKeyAndVisible()
+
+~~~
+
