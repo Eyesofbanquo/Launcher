@@ -17,6 +17,8 @@ public class Launcher: UIViewController {
   
   // MARK: - Properties -
   
+  var mainApp: UIViewController?
+  
   private var reuseIdentifier: String = LauncherCell.reuseIdentifier
   
   private(set) var suites: [[Suite]]
@@ -108,13 +110,23 @@ extension Launcher {
     navigationController.title = title
     navigationController.navigationBar.prefersLargeTitles = true
     
+    let runAppBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(self.runMainApplication))
+    self.navigationItem.rightBarButtonItem = runAppBarButtonItem
+    
     let navAppearance = UINavigationBarAppearance()
+    
     navAppearance.configureWithOpaqueBackground()
     
     navigationController.navigationBar.compactAppearance = navAppearance
     navigationController.navigationBar.standardAppearance = navAppearance
     
     return navigationController
+  }
+  
+  @objc internal func runMainApplication() {
+    guard let mainApp = mainApp else { return }
+    
+    navigationController?.pushViewController(mainApp, animated: true)
   }
 }
 
@@ -151,7 +163,7 @@ extension Launcher: UITableViewDataSource {
     print(section)
     if let header = view as? UITableViewHeaderFooterView {
       header.contentView.backgroundColor = self.view.backgroundColor
-      header.textLabel?.textColor = .white
+      header.textLabel?.textColor = .black
     }
   }
   
