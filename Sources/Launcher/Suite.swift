@@ -13,9 +13,11 @@ import UIKit
 
 #if canImport(UIKit)
 public protocol Suite {
-  var rawValue: String { get }
+  var rowTitle: String { get }
   var presentationMethod: PresentationMethod { get }
-  var name: String { get }
+  var suiteName: String { get }
   func controller() -> UIViewController
+  
+  static var collection: [Suite] { get }
 }
 #endif
