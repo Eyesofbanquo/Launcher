@@ -17,6 +17,8 @@ public class Launcher: UIViewController {
   
   // MARK: - Properties -
   
+  var mainApp: UIViewController?
+  
   private var reuseIdentifier: String = LauncherCell.reuseIdentifier
   
   private(set) var suites: [[Suite]]
@@ -48,7 +50,6 @@ public class Launcher: UIViewController {
     view.sv([
       tableView
     ])
-    
     
     tableView.style { t in
       t.separatorStyle = .none
@@ -86,16 +87,16 @@ extension Launcher {
     }
   }
   
-  public func window(forScene scene: UIScene) -> UIWindow? {
+  public func createWindow(forScene scene: UIScene) -> UIWindow? {
     guard let windowScene = (scene as? UIWindowScene) else { return nil }
     
     // Create a new window with the given window scene
-    let window = UIWindow(windowScene: windowScene)
+    let createWindow = UIWindow(windowScene: windowScene)
     let rootViewController = create()
     
-    window.rootViewController = rootViewController
+    createWindow.rootViewController = rootViewController
     
-    return window
+    return createWindow
   }
 }
 
@@ -109,16 +110,23 @@ extension Launcher {
     navigationController.title = title
     navigationController.navigationBar.prefersLargeTitles = true
     
+    let runAppBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(self.runMainApplication))
+    self.navigationItem.rightBarButtonItem = runAppBarButtonItem
+    
     let navAppearance = UINavigationBarAppearance()
+    
     navAppearance.configureWithOpaqueBackground()
-//    navAppearance.backgroundColor = .black
-//    navAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-//    navAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
     
     navigationController.navigationBar.compactAppearance = navAppearance
     navigationController.navigationBar.standardAppearance = navAppearance
     
     return navigationController
+  }
+  
+  @objc internal func runMainApplication() {
+    guard let mainApp = mainApp else { return }
+    
+    navigationController?.pushViewController(mainApp, animated: true)
   }
 }
 
@@ -155,7 +163,7 @@ extension Launcher: UITableViewDataSource {
     print(section)
     if let header = view as? UITableViewHeaderFooterView {
       header.contentView.backgroundColor = self.view.backgroundColor
-      header.textLabel?.textColor = .white
+      header.textLabel?.textColor = .black
     }
   }
   
@@ -177,8 +185,6 @@ extension Launcher: UITableViewDataSource {
     return testCell
   }
   
-  
 }
-
 
 #endif
