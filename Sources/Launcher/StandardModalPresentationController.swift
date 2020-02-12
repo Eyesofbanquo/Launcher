@@ -122,7 +122,6 @@ class StandardModalPresentationController: UIPresentationController {
       make.bottom.equalTo(containerView.directionalLayoutMargins.bottom).offset(grid.negativeOffset)
     }
     
-    
     self.titleLabel?.snp.makeConstraints { make in
       make.leading.equalTo(layoutGuide.snp.leading)
       make.top.greaterThanOrEqualTo(layoutGuide.snp.top)
@@ -137,9 +136,9 @@ class StandardModalPresentationController: UIPresentationController {
       } else {
         make.top.greaterThanOrEqualTo(layoutGuide.snp.top)
       }
-      make.bottom.lessThanOrEqualTo(layoutGuide.snp.bottom)
-      make.leading.equalTo(layoutGuide.snp.leading)
-      make.trailing.equalTo(layoutGuide.snp.trailing)
+      make.bottom.lessThanOrEqualTo(layoutGuide.snp.bottom).priority(.init(250.0))
+      make.leading.greaterThanOrEqualTo(layoutGuide.snp.leading).priority(.init(250.0))
+      make.trailing.lessThanOrEqualTo(layoutGuide.snp.trailing).priority(.init(250.0))
     }
     
   }
