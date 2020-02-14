@@ -134,12 +134,12 @@ extension Launcher: UITableViewDelegate {
   public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     let item = suites[indexPath.section][indexPath.row]
-    
+    let controller = item.controller()
     switch item.presentationMethod {
     case .push:
-      self.navigationController?.pushViewController(item.controller(), animated: true)
+      self.navigationController?.pushViewController(controller, animated: true)
     case .present:
-      self.present(item.controller(), animated: true, completion: nil)
+      self.present(controller, animated: true, completion: nil)
     }
     
     tableView.deselectRow(at: indexPath, animated: true)
