@@ -11,7 +11,6 @@ import Foundation
 import UIKit
 
 public protocol Displayable {
-  var presentableController: UIViewController { get }
   static func display(view: UIView, grid: Grid, title: String?) -> UIViewController
   static func display(controller: UIViewController, grid: Grid, title: String?) -> UIViewController
 }

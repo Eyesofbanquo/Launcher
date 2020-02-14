@@ -14,7 +14,7 @@ import Stevia
 import UIKit
 
 /// This controller is responsible for being the container that allows views to present themselves
-class DisplayViewController: UIViewController {
+public class DisplayViewController: UIViewController {
   
   // MARK: - Views -
   
@@ -81,7 +81,7 @@ class DisplayViewController: UIViewController {
    
   }
   
-  override func viewDidLoad() {
+  override public func viewDidLoad() {
     super.viewDidLoad()
     
     view.backgroundColor = .white
@@ -96,24 +96,30 @@ class DisplayViewController: UIViewController {
   }
   
   
-  
-}
-
-extension UIViewController: Displayable {
-  public var presentableController: UIViewController {
-    return self
-  }
-  
-  public static func display(view: UIView, grid: Grid, title: String? = nil) -> UIViewController {
-    
+  public static func display(view: UIView, grid: Grid = .point8, title: String? = nil) -> DisplayViewController {
     return DisplayViewController(view: view, grid: grid, title: title)
   }
   
-  public static func display(controller: UIViewController, grid: Grid, title: String? = nil) -> UIViewController {
+  public static func display(controller: UIViewController, grid: Grid = .point8, title: String? = nil) -> DisplayViewController {
     return DisplayViewController(controller: controller, grid: grid, title: title)
-
+    
   }
+  
+  
 }
+
+//extension UIViewController: Displayable {
+//  
+//  public static func display(view: UIView, grid: Grid, title: String? = nil) -> UIViewController {
+//    
+//    return DisplayViewController(view: view, grid: grid, title: title)
+//  }
+//  
+//  public static func display(controller: UIViewController, grid: Grid, title: String? = nil) -> UIViewController {
+//    return DisplayViewController(controller: controller, grid: grid, title: title)
+//
+//  }
+//}
 
 
 #endif
