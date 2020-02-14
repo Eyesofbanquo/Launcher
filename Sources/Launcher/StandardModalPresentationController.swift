@@ -38,7 +38,7 @@ class StandardModalPresentationController: UIPresentationController {
     
     self.titleLabel = title != nil ? UILabel() : nil
     self.titleLabel?.style { label in
-      label.alpha = 0.0
+      label.layer.opacity = 0.0
       label.text = title
       label.textColor = .white
       label.numberOfLines = 1
@@ -83,7 +83,7 @@ class StandardModalPresentationController: UIPresentationController {
     setupBlurView(inContainer: containerView)
 
     guard let coordinator = presentedViewController.transitionCoordinator else {
-      self.titleLabel?.alpha = 1.0
+      self.titleLabel?.layer.opacity = 1.0
       blurView.alpha = 0.33
       return
     }
@@ -123,7 +123,7 @@ class StandardModalPresentationController: UIPresentationController {
     }
     
     self.titleLabel?.snp.makeConstraints { make in
-      make.leading.equalTo(layoutGuide.snp.leading)
+      make.centerX.equalTo(presentedView.snp.centerX)
       make.top.greaterThanOrEqualTo(layoutGuide.snp.top)
     }
     
@@ -132,13 +132,13 @@ class StandardModalPresentationController: UIPresentationController {
       make.centerY.equalTo(containerView)
       
       if let titleLabel = titleLabel {
-        make.top.equalTo(titleLabel.snp.bottom).offset(8.0)
+        make.top.equalTo(titleLabel.snp.bottom).offset(16.0)
       } else {
         make.top.greaterThanOrEqualTo(layoutGuide.snp.top)
       }
-      make.bottom.lessThanOrEqualTo(layoutGuide.snp.bottom).priority(.init(250.0))
-      make.leading.greaterThanOrEqualTo(layoutGuide.snp.leading).priority(.init(250.0))
-      make.trailing.lessThanOrEqualTo(layoutGuide.snp.trailing).priority(.init(250.0))
+      make.bottom.lessThanOrEqualTo(layoutGuide.snp.bottom)
+      make.leading.greaterThanOrEqualTo(layoutGuide.snp.leading)
+      make.trailing.lessThanOrEqualTo(layoutGuide.snp.trailing)
     }
     
   }
