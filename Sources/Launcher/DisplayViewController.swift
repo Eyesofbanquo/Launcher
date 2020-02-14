@@ -46,12 +46,10 @@ class DisplayViewController: UIViewController {
     ])
     
     presentableView.snp.makeConstraints { make in
-//      make.centerX.equalTo(containerView)
-//      make.centerY.equalTo(containerView)
-      make.leading.equalTo(containerView.layoutMarginsGuide.snp.leading).priority(.low)
-      make.trailing.equalTo(containerView.layoutMarginsGuide.snp.trailing).priority(.low)
-      make.bottom.equalTo(containerView.layoutMarginsGuide.snp.bottom).priority(.low)
-      make.top.equalTo(containerView.layoutMarginsGuide.snp.top).priority(.low)
+      make.leading.equalTo(containerView.layoutMarginsGuide.snp.leading)
+      make.trailing.equalTo(containerView.layoutMarginsGuide.snp.trailing)
+      make.bottom.equalTo(containerView.layoutMarginsGuide.snp.bottom)
+      make.top.equalTo(containerView.layoutMarginsGuide.snp.top)
     }
     
     view = containerView

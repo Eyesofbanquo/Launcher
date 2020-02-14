@@ -136,9 +136,9 @@ class StandardModalPresentationController: UIPresentationController {
       } else {
         make.top.greaterThanOrEqualTo(layoutGuide.snp.top)
       }
-      make.bottom.lessThanOrEqualTo(layoutGuide.snp.bottom).priority(.init(250.0))
-      make.leading.greaterThanOrEqualTo(layoutGuide.snp.leading).priority(.init(250.0))
-      make.trailing.lessThanOrEqualTo(layoutGuide.snp.trailing).priority(.init(250.0))
+      make.bottom.lessThanOrEqualTo(layoutGuide.snp.bottom)
+      make.leading.greaterThanOrEqualTo(layoutGuide.snp.leading)
+      make.trailing.lessThanOrEqualTo(layoutGuide.snp.trailing)
     }
     
   }
