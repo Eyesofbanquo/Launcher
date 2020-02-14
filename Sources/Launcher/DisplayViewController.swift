@@ -48,7 +48,7 @@ class DisplayViewController: UIViewController {
   
   // MARK: - Lifecycle -
   
-  override func loadView() {
+  override public func loadView() {
     
     switch presentable {
     case let controller as UIViewController:
@@ -94,9 +94,15 @@ class DisplayViewController: UIViewController {
       controller.removeFromParent()
     }
   }
+  
+  
+  
 }
 
-extension UIViewController {
+extension UIViewController: Displayable {
+  public var presentableController: UIViewController {
+    return self
+  }
   
   public static func display(view: UIView, grid: Grid, title: String? = nil) -> UIViewController {
     
