@@ -106,7 +106,7 @@ extension Launcher {
 // MARK: - Builder -
 extension Launcher {
   
-  internal func create(forTitle title: String? = "View for testing") -> UINavigationController {
+  internal func create(forTitle title: String? = "Launcher 😈") -> UINavigationController {
     self.title = title
     let navigationController = UINavigationController(rootViewController: self)
     navigationController.title = title
@@ -178,7 +178,6 @@ extension Launcher: UITableViewDataSource {
   public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
     print(section)
     if let header = view as? UITableViewHeaderFooterView {
-//      header.contentView.backgroundColor = self.view.backgroundColor
       header.textLabel?.textColor = .label
     }
   }
