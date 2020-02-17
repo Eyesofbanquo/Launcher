@@ -21,6 +21,7 @@ public class Launcher: UIViewController {
   
   private var reuseIdentifier: String = LauncherCell.reuseIdentifier
   
+  private var suiteTypes: [Suite.Type] = []
   private(set) var suites: [[Suite]]
   
   // MARK: - Views -
@@ -83,7 +84,8 @@ extension Launcher {
   
   public func register(suites: [Suite.Type]) {
     for suite in suites {
-      self.suites.append(suite.collection)
+      self.suiteTypes.append(suite)
+      self.suites.append(suite.enabled)
     }
   }
   
@@ -170,7 +172,7 @@ extension Launcher: UITableViewDataSource {
   public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     guard suites[section].count > 0 else { return "unknown" }
     
-    return suites[section].first!.suiteName
+    return suiteTypes[section].suiteName
   }
   
   public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
