@@ -15,9 +15,12 @@ import UIKit
 public protocol Suite {
   var rowTitle: String { get }
   var presentationMethod: PresentationMethod { get }
-  var suiteName: String { get }
+
   func controller() -> DisplayViewController
   
-  static var collection: [Suite] { get }
+  static var enabled: [Suite] { get }
+  
+  static var suiteName: String { get }
+  
 }
 #endif
