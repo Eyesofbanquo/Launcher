@@ -109,24 +109,24 @@ extension Launcher {
     let navigationController = UINavigationController(rootViewController: self)
     navigationController.title = title
     navigationController.navigationBar.prefersLargeTitles = true
-    navigationController.navigationBar.tintColor = UIColor.systemYellow
+    navigationController.navigationBar.tintColor = .label
     
     let runAppBarButtonAppearance = UIBarButtonItemAppearance(style: .plain)
     runAppBarButtonAppearance.normal.titleTextAttributes = [.backgroundColor: UIColor.white]
     
     let backBarButtonAppearance = UIBarButtonItemAppearance(style: .plain)
-    backBarButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.systemYellow]
+    backBarButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.label]
     
     let runAppBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(self.runMainApplication))
-    runAppBarButtonItem.tintColor = UIColor.white
+    runAppBarButtonItem.tintColor = .systemGreen
     self.navigationItem.rightBarButtonItem = runAppBarButtonItem
     
     let navAppearance = UINavigationBarAppearance()
     navAppearance.configureWithOpaqueBackground()
     
-    navAppearance.backgroundColor = UIColor.systemPurple
-    navAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemYellow]
-    navAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemYellow]
+    navAppearance.backgroundColor = UIColor.systemGroupedBackground
+    navAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
+    navAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
     navAppearance.buttonAppearance = runAppBarButtonAppearance
     navAppearance.backButtonAppearance = backBarButtonAppearance
     
@@ -177,7 +177,7 @@ extension Launcher: UITableViewDataSource {
     print(section)
     if let header = view as? UITableViewHeaderFooterView {
 //      header.contentView.backgroundColor = self.view.backgroundColor
-      header.textLabel?.textColor = .black
+      header.textLabel?.textColor = .label
     }
   }
   
