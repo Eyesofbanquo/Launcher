@@ -21,6 +21,7 @@ public class Launcher: UIViewController {
   
   private var reuseIdentifier: String = LauncherCell.reuseIdentifier
   
+  private var suiteTypes: [Suite.Type] = []
   private(set) var suites: [[Suite]]
   
   // MARK: - Views -
@@ -30,7 +31,7 @@ public class Launcher: UIViewController {
   // MARK: - Init -
   
   public init() {
-    tableView = UITableView()
+    tableView = UITableView(frame: .zero, style: .insetGrouped)
     suites = []
     
     super.init(nibName: nil, bundle: nil)
@@ -52,12 +53,14 @@ public class Launcher: UIViewController {
     ])
     
     tableView.style { t in
-      t.separatorStyle = .none
+
+      t.separatorStyle = .singleLine
       t.register(LauncherCell.self, forCellReuseIdentifier: reuseIdentifier)
-      t.backgroundColor = .white
+      t.backgroundColor = .systemGroupedBackground
       t.tableFooterView = UIView()
       t.delegate = self
       t.dataSource = self
+      t.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 8.0, right: 0.0)
     }
     
   }
@@ -81,7 +84,8 @@ extension Launcher {
   
   public func register(suites: [Suite.Type]) {
     for suite in suites {
-      self.suites.append(suite.collection)
+      self.suiteTypes.append(suite)
+      self.suites.append(suite.enabled)
     }
   }
   
@@ -102,21 +106,35 @@ extension Launcher {
 // MARK: - Builder -
 extension Launcher {
   
-  internal func create(forTitle title: String? = "View for testing") -> UINavigationController {
+  internal func create(forTitle title: String? = "Launcher 😈") -> UINavigationController {
     self.title = title
     let navigationController = UINavigationController(rootViewController: self)
     navigationController.title = title
     navigationController.navigationBar.prefersLargeTitles = true
+    navigationController.navigationBar.tintColor = .label
+    
+    let runAppBarButtonAppearance = UIBarButtonItemAppearance(style: .plain)
+    runAppBarButtonAppearance.normal.titleTextAttributes = [.backgroundColor: UIColor.white]
+    
+    let backBarButtonAppearance = UIBarButtonItemAppearance(style: .plain)
+    backBarButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.label]
     
     let runAppBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(self.runMainApplication))
+    runAppBarButtonItem.tintColor = .systemGreen
     self.navigationItem.rightBarButtonItem = runAppBarButtonItem
     
     let navAppearance = UINavigationBarAppearance()
-    
     navAppearance.configureWithOpaqueBackground()
+    
+    navAppearance.backgroundColor = UIColor.systemGroupedBackground
+    navAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
+    navAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
+    navAppearance.buttonAppearance = runAppBarButtonAppearance
+    navAppearance.backButtonAppearance = backBarButtonAppearance
     
     navigationController.navigationBar.compactAppearance = navAppearance
     navigationController.navigationBar.standardAppearance = navAppearance
+    navigationController.navigationBar.scrollEdgeAppearance = navAppearance
     
     return navigationController
   }
@@ -154,14 +172,13 @@ extension Launcher: UITableViewDataSource {
   public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     guard suites[section].count > 0 else { return "unknown" }
     
-    return suites[section].first!.suiteName
+    return suiteTypes[section].suiteName
   }
   
   public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
     print(section)
     if let header = view as? UITableViewHeaderFooterView {
-      header.contentView.backgroundColor = self.view.backgroundColor
-      header.textLabel?.textColor = .black
+      header.textLabel?.textColor = .label
     }
   }
   

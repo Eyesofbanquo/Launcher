@@ -32,11 +32,11 @@ class StandardModalPresentationController: UIPresentationController {
     blurView.addGestureRecognizer(blurViewTapped)
   }
   
-  init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, grid: Grid, title: String? = nil) {
+  init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, grid: Grid, title: String? = "Default Title") {
     
     super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
     
-    self.titleLabel = title != nil ? UILabel() : nil
+    self.titleLabel = UILabel()
     self.titleLabel?.style { label in
       label.layer.opacity = 0.0
       label.text = title
@@ -55,7 +55,6 @@ class StandardModalPresentationController: UIPresentationController {
   private func setupBlurView(inContainer containerView: UIView) {
     containerView.insertSubview(blurView, at: 0)
     
-//    blurView.alpha = 0.33
     blurView.snp.makeConstraints { make in
       make.leading.equalTo(containerView)
       make.trailing.equalTo(containerView)

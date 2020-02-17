@@ -12,11 +12,11 @@ import UIKit
 /// The standard transition delegate. All this does is present the view modally as intended without _any_ sort of transition animations
 class StandardModalTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
   var grid: Grid?
-  var title: String?
+  var title: String = ""
   
   convenience init(grid: Grid, title: String? = nil) {
     self.init()
-    self.title = title
+    self.title = title ?? "Default Title"
     self.grid = grid
   }
   
